@@ -10,7 +10,7 @@ export default class PageHeaderItem extends React.Component {
     }
     __pcHeader() {
         const item = menuRaw.menu.map(m => {
-            return location.pathname === m.href ? (
+            return window.location.pathname === m.href ? (
                 <li className="current" key={m.text}>
                     <a href={m.href}>{m.text}</a>
                 </li>

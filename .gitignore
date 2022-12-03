@@ -130,4 +130,6 @@ dist
 # Local History for Visual Studio Code
 .history/
 
-
+# others
+build/
+exec_log.json

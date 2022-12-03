@@ -1,0 +1,7 @@
+.git/
+.github/
+.*.json
+.*ignore
+node_modules/
+deploy-exclude-files.txt
+README.md

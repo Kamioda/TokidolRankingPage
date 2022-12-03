@@ -1,0 +1,53 @@
+{
+  "name": "tokidolrankingmainsite",
+  "version": "3.0.0",
+  "description": "ときめきアイドルスコアランキングのメインページ",
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write .",
+    "eslint": "eslint --cache --ext .js .",
+    "eslint:fix": "eslint --cache --ext .js . --fix",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "author": "ときめきアイドルスコアランキング運営",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "react": "^18.2.0",
+    "react-burger-menu": "^3.0.8",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "toastr": "^2.1.4",
+    "web-vitals": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.31.11",
+    "prettier": "^2.8.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

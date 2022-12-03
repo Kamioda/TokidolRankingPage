@@ -1,0 +1,11 @@
+{
+    "menu": [
+        { "text": "トップ", "href": "/" },
+        { "text": "レコード投稿", "href": "/live" },
+        { "text": "プロデューサー検索", "href": "/search_producer" },
+        { "text": "利用規約", "href": "/term" },
+        { "text": "プライバシーポリシー", "href": "/privacy" },
+        { "text": "バージョン情報", "href": "/version" },
+        { "text": "マイページ", "href": "/mypage" }
+    ]
+}

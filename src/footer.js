@@ -1,5 +1,5 @@
 import React from 'react';
-import 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class PageFooterItem extends React.Component {
     constructor(props) {

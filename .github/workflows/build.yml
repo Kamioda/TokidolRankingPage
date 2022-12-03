@@ -49,7 +49,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -auz --delete --exclude-from="deploy-exclude-files.txt"
-          path: ./
+          path: ./build
           remote_path: ${{ secrets.CONOHA_DEPLOY_PATH }}
           remote_port: ${{ secrets.CONOHA_SSH_PORT }}
           remote_host: meigetsu.jp

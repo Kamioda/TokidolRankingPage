@@ -13,8 +13,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AinoMegumi/TokidolRankigSite.git"
+  },
   "author": "ときめきアイドルスコアランキング運営",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AinoMegumi/BlossomAndGirlsAndDivaVoice_DevelopmentPage/issues"
+  },
+  "homepage": "https://www.tokidolranking.site/",
   "dependencies": {
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",

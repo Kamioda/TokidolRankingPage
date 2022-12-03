@@ -18,7 +18,7 @@ jobs:
                   remote_user: Kamioda
                   remote_key: ${{ secrets.DEPLOYSSHKEY }}
     release_deploy:
-        name: Deploy to preview page
+        name: Deploy to main page
         runs-on: ubuntu-22.04
         if: startsWith(github.ref, 'refs/tags/release-')
         steps:

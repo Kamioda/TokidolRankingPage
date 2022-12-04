@@ -13,20 +13,20 @@ const root = ReactDOM.createRoot(document.getElementById('content'));
 const App = () => {
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<IndexItem />} />
-                <Route path="/live" element={<LiveUploadItem />} />
-            </Routes>
+            <PageHeaderItem />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<IndexItem />} />
+                        <Route path="/live" element={<LiveUploadItem />} />
+                    </Routes>
+                </main>
+            <PageFooterItem />
         </Router>
     );
 };
 
 root.render(
     <React.StrictMode>
-        <PageHeaderItem />
-        <main>
-            <App />
-        </main>
-        <PageFooterItem />
+        {App()}
     </React.StrictMode>
 );

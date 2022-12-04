@@ -11,7 +11,8 @@
     "eslint": "eslint --cache --ext .js .",
     "eslint:fix": "eslint --cache --ext .js . --fix",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "ghpages": "npm run build && gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.31.11",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.8.0"
   },
   "eslintConfig": {

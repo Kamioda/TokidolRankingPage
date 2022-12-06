@@ -7,6 +7,7 @@ import PageHeaderItem from './header.js';
 import PageFooterItem from './footer.js';
 import IndexItem from './main/index.js';
 import LiveUploadItem from './main/live.js';
+import TermItem from './main/term.js';
 
 const root = ReactDOM.createRoot(document.getElementById('content'));
 
@@ -18,6 +19,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<IndexItem />} />
                     <Route path="/live" element={<LiveUploadItem />} />
+                    <Route path="/term" element={<TermItem />} />
                 </Routes>
             </main>
             <PageFooterItem />

@@ -22,9 +22,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: rsync to conoha
         uses: burnett01/rsync-deployments@5.2
+      - run: |
+          npm install
+          npm run build
+          cp ./serverapp/iis.config ./build/web.config
         with:
-          switches: -auz --delete --exclude-from="deploy-exclude-files.txt"
-          path: ./
+          switches: -auz --delete
+          path: ./build
           remote_path: ${{ secrets.CONOHA_RSYNC_PATH }}
           remote_port: ${{ secrets.CONOHA_SSH_PORT }}
           remote_host: meigetsu.jp
@@ -43,13 +47,7 @@ jobs:
           username: Kamioda
           key: ${{ secrets.DEPLOYSSHKEY }}
           port: ${{ secrets.CONOHA_SSH_PORT }}
-          script: |
-            cd ${{ secrets.CONOHA_RSYNC_PATH }}
-            npm install
-            npm run build
-            Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
-            rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
-            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }}/* -Recurse
+          script: rsync -au --delete --delete-after ${{ secrets.CONOHA_RSYNC_PATH }}/build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
   deploy:
     name: Deploy to main page
     runs-on: ubuntu-22.04
@@ -63,10 +61,4 @@ jobs:
           username: Kamioda
           key: ${{ secrets.DEPLOYSSHKEY }}
           port: ${{ secrets.CONOHA_SSH_PORT }}
-          script: |
-            cd ${{ secrets.CONOHA_RSYNC_PATH }}
-            npm install
-            npm run build
-            Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
-            rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
-            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }}/* -Recurse
+          script: rsync -au --delete --delete-after ${{ secrets.CONOHA_RSYNC_PATH }}/build ${{ secrets.CONOHA_DEPLOY_PATH }}

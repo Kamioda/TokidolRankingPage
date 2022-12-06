@@ -8,6 +8,7 @@ import PageFooterItem from './footer.js';
 import IndexItem from './main/index.js';
 import LiveUploadItem from './main/live.js';
 import TermItem from './main/term.js';
+import PrivacyPolicyItem from './main/privacy.js';
 
 const root = ReactDOM.createRoot(document.getElementById('content'));
 
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path="/" element={<IndexItem />} />
                     <Route path="/live" element={<LiveUploadItem />} />
                     <Route path="/term" element={<TermItem />} />
+                    <Route path="/privacy" element={<PrivacyPolicyItem />} />
                 </Routes>
             </main>
             <PageFooterItem />

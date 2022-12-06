@@ -14,19 +14,15 @@ const App = () => {
     return (
         <Router>
             <PageHeaderItem />
-                <main>
-                    <Routes>
-                        <Route path="/" element={<IndexItem />} />
-                        <Route path="/live" element={<LiveUploadItem />} />
-                    </Routes>
-                </main>
+            <main>
+                <Routes>
+                    <Route path="/" element={<IndexItem />} />
+                    <Route path="/live" element={<LiveUploadItem />} />
+                </Routes>
+            </main>
             <PageFooterItem />
         </Router>
     );
 };
 
-root.render(
-    <React.StrictMode>
-        {App()}
-    </React.StrictMode>
-);
+root.render(<React.StrictMode>{App()}</React.StrictMode>);

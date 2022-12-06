@@ -35,7 +35,7 @@ jobs:
       - name: ready upload
         run: cp ./serverapp/iis.config ./build/web.config
       - name: upload build data
-        run: rsync -auz -e "ssh -i key -p ${{ secrets.CONOHA_SSH_PORT }}" --delete ./build ${{ secrets.CONOHA_USERNAME }}@${{ secrets.CONOHA_SERVER_DOMAIN }}:${{ secrets.CONOHA_RSYNC_PATH }}
+        run: rsync -auz -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_SSH_PORT }}" --delete ./build ${{ secrets.CONOHA_USERNAME }}@${{ secrets.CONOHA_SERVER_DOMAIN }}:${{ secrets.CONOHA_RSYNC_PATH }}
   deployDev:
     name: Deploy to development page
     runs-on: ubuntu-22.04

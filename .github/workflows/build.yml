@@ -49,8 +49,7 @@ jobs:
             npm run build
             Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
             rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
-            cd ${{ secrets.CONOHA_RSYNC_PATH }}/../
-            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }} -Recurse
+            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }}/* -Recurse
   deploy:
     name: Deploy to main page
     runs-on: ubuntu-22.04
@@ -70,5 +69,4 @@ jobs:
             npm run build
             Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
             rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
-            cd ${{ secrets.CONOHA_RSYNC_PATH }}/../
-            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }} -Recurse
+            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }}/* -Recurse

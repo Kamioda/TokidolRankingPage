@@ -43,7 +43,7 @@ jobs:
           username: Kamioda
           key: ${{ secrets.DEPLOYSSHKEY }}
           port: ${{ secrets.CONOHA_SSH_PORT }}
-          script:
+          script: |
             cd ${{ secrets.CONOHA_RSYNC_PATH }}
             npm install
             npm run build
@@ -63,7 +63,7 @@ jobs:
           username: Kamioda
           key: ${{ secrets.DEPLOYSSHKEY }}
           port: ${{ secrets.CONOHA_SSH_PORT }}
-          script:
+          script: |
             cd ${{ secrets.CONOHA_RSYNC_PATH }}
             npm install
             npm run build

@@ -13,11 +13,11 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm run build
-  ready_deploy:
-    name: Transfer to ConoHa
+  deploy_dev:
+    name: Deploy to preview page
     runs-on: ubuntu-22.04
     needs: build_test
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/preview-')
     steps:
       - uses: actions/checkout@v3
       - name: rsync to conoha
@@ -35,32 +35,27 @@ jobs:
       - name: ready upload
         run: cp ./serverapp/iis.config ./build/web.config
       - name: upload build data
-        run: rsync -auz -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_SSH_PORT }}" --delete ./build ${{ secrets.CONOHA_USERNAME }}@${{ secrets.CONOHA_SERVER_DOMAIN }}:${{ secrets.CONOHA_RSYNC_PATH }}
-  deployDev:
-    name: Deploy to development page
-    runs-on: ubuntu-22.04
-    needs: ready_deploy
-    if: startsWith(github.ref, 'refs/tags/preview-')
-    steps:
-      - name: deploy to development page directory
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.CONOHA_SERVER_DOMAIN }}
-          username: ${{ secrets.CONOHA_USERNAME }}
-          key: ${{ secrets.DEPLOYSSHKEY }}
-          port: ${{ secrets.CONOHA_SSH_PORT }}
-          script: rsync -au --delete --delete-after ${{ secrets.CONOHA_RSYNC_PATH }}/build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
-  deploy:
+        run: rsync -auz -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_SSH_PORT }}" --delete ./build/ ${{ secrets.CONOHA_USERNAME }}@${{ secrets.CONOHA_SERVER_DOMAIN }}:${{ secrets.CONOHA_DEVDEPLOY_PATH }}
+  deploy_release:
     name: Deploy to main page
     runs-on: ubuntu-22.04
-    needs: ready_deploy
+    needs: build_test
     if: startsWith(github.ref, 'refs/tags/release-')
     steps:
-      - name: deploy to main page directory
-        uses: appleboy/ssh-action@master
+      - uses: actions/checkout@v3
+      - name: rsync to conoha
+        uses: actions/setup-node@v3
         with:
-          host: ${{ secrets.CONOHA_SERVER_DOMAIN }}
-          username: ${{ secrets.CONOHA_USERNAME }}
-          key: ${{ secrets.DEPLOYSSHKEY }}
-          port: ${{ secrets.CONOHA_SSH_PORT }}
-          script: rsync -au --delete --delete-after ${{ secrets.CONOHA_RSYNC_PATH }}/build ${{ secrets.CONOHA_DEPLOY_PATH }}
+          node-version: '18'
+          cache: 'npm'
+      - run: |
+          npm install
+          npm run build
+      - name: create ssh key
+        run: echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOYSSHKEY }}
+      - name: ready upload
+        run: cp ./serverapp/iis.config ./build/web.config
+      - name: upload build data
+        run: rsync -auz -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_SSH_PORT }}" --delete ./build/ ${{ secrets.CONOHA_USERNAME }}@${{ secrets.CONOHA_SERVER_DOMAIN }}:${{ secrets.CONOHA_DEPLOY_PATH }}

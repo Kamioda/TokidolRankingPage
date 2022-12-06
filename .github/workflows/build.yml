@@ -13,3 +13,62 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm run build
+  rsync:
+    name: Transfer to ConoHa
+    runs-on: ubuntu-22.04
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v3
+      - name: rsync to conoha
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          switches: -auz --delete --exclude-from="deploy-exclude-files.txt"
+          path: ./
+          remote_path: ${{ secrets.CONOHA_RSYNC_PATH }}
+          remote_port: ${{ secrets.CONOHA_SSH_PORT }}
+          remote_host: meigetsu.jp
+          remote_user: Kamioda
+          remote_key: ${{ secrets.DEPLOYSSHKEY }}
+  deployDev:
+    name: Deploy to development page
+    runs-on: ubuntu-22.04
+    needs: rsync
+    if: startsWith(github.ref, '/refs/tags/preview-')
+    steps:
+      - name: deploy to development page directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: meigetsu.jp
+          username: Kamioda
+          key: ${{ secrets.DEPLOYSSHKEY }}
+          port: ${{ secrets.CONOHA_SSH_PORT }}
+          script:
+            cd ${{ secrets.CONOHA_RSYNC_PATH }}
+            npm install
+            npm run build
+            Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
+            rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
+            cd ${{ secrets.CONOHA_RSYNC_PATH }}/../
+            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }} -Recurse
+  deploy:
+    name: Deploy to main page
+    runs-on: ubuntu-22.04
+    needs: rsync
+    if: startsWith(github.ref, '/refs/tags/release-')
+    steps:
+      - name: deploy to main page directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: meigetsu.jp
+          username: Kamioda
+          key: ${{ secrets.DEPLOYSSHKEY }}
+          port: ${{ secrets.CONOHA_SSH_PORT }}
+          script:
+            cd ${{ secrets.CONOHA_RSYNC_PATH }}
+            npm install
+            npm run build
+            Copy-Item -Path ./serverapp/iis.config -Destination ./build/web.config
+            rsync -au ./build ${{ secrets.CONOHA_DEVDEPLOY_PATH }}
+            cd ${{ secrets.CONOHA_RSYNC_PATH }}/../
+            Remove-Item -Path ${{ secrets.CONOHA_RSYNC_PATH }} -Recurse

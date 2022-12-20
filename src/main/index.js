@@ -3,14 +3,10 @@ import musics from '../resources/recordinfo.json';
 import '../css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const readMusic = () => {
-    return musics.record;
-};
-
 export default class IndexItem extends React.Component {
     constructor(props) {
         super(props);
-        this.items = readMusic().map(r => {
+        this.items = musics.record.map(r => {
             const boxContent =
                 r.picture == null ? (
                     <div className="noimage"></div>

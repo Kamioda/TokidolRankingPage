@@ -75,6 +75,7 @@ label {
 
 #version dd {
     margin: 0.15rem 0;
+    margin-left: 1em;
 }
 
 #input {

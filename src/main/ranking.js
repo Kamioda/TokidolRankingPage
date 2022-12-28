@@ -82,10 +82,7 @@ export default class RankingItem extends React.Component {
         fetch(`https://api.tokidolranking.site/v1_insider_preview/record/${this.state.songkey}`,
             {
                 mode: 'cors',
-                method: 'GET',
-                header: {
-                    'Access-Control-Allow-Origin': '*'
-                }
+                method: 'GET'
             }
         )
             .then(r => r.json())
@@ -110,7 +107,7 @@ export default class RankingItem extends React.Component {
             this.setState({ first_get: true });
             setInterval(() => {
                 this.getRecord();
-            }, 1000 * 10);
+            }, 1000 * 60);
         }
         const createLevelNavButton = difficulty => {
             return createElement(

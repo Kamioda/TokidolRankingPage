@@ -9,6 +9,7 @@ import IndexItem from './main/index.js';
 import LiveUploadItem from './main/live.js';
 import TermItem from './main/term.js';
 import PrivacyPolicyItem from './main/privacy.js';
+import RankingItem from './main/ranking.js';
 import VersionItem from './main/version.js';
 
 const root = ReactDOM.createRoot(document.getElementById('content'));
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/live" element={<LiveUploadItem />} />
                     <Route path="/term" element={<TermItem />} />
                     <Route path="/privacy" element={<PrivacyPolicyItem />} />
+                    <Route path="/ranking" element={<RankingItem />} />
                     <Route path="/version" element={<VersionItem />} />
                 </Routes>
             </main>

@@ -58,11 +58,9 @@ const noRecord = <h3>レコードがありません</h3>;
  * @param {number} order 順位
  * @param {{id: number, user_id: string, name: string, score: number, upload: string}[]|null} record レコード情報の一覧
  */
-const createRankingView = (recordArr) => {
+const createRankingView = recordArr => {
     let order = 1;
-    return recordArr == null
-        ? noRecord
-        : recordArr.map(r => createRankingViewImpl(order++, r))
+    return recordArr == null ? noRecord : recordArr.map(r => createRankingViewImpl(order++, r));
 };
 
 export default class RankingItem extends React.Component {
@@ -75,16 +73,14 @@ export default class RankingItem extends React.Component {
             songkey: search.get('song'),
             musicName: musics.record.find(r => r.key === search.get('song')).music,
             records: [],
-            first_get: false
+            first_get: false,
         };
     }
     getRecord() {
-        fetch(`https://api.tokidolranking.site/v1_insider_preview/record/${this.state.songkey}`,
-            {
-                mode: 'cors',
-                method: 'GET'
-            }
-        )
+        fetch(`https://api.tokidolranking.site/v1_insider_preview/record/${this.state.songkey}`, {
+            mode: 'cors',
+            method: 'GET',
+        })
             .then(r => r.json())
             .then(response => {
                 const resRecords = [];
@@ -114,25 +110,33 @@ export default class RankingItem extends React.Component {
                 'button',
                 this.state.difficulty === difficulty
                     ? { className: 'game-mode-container__item is-current', key: difficulty }
-                    : { className: 'game-mode-container__item', key: difficulty, onClick: () => this.setState({ difficulty: difficulty }) },
+                    : {
+                          className: 'game-mode-container__item',
+                          key: difficulty,
+                          onClick: () => this.setState({ difficulty: difficulty }),
+                      },
                 createElement('a', [], difficulty.toUpperCase())
             );
         };
-        const navigation = createElement('nav', { className: 'game-mode' }, 
+        const navigation = createElement(
+            'nav',
+            { className: 'game-mode' },
             createElement('div', { className: 'game-mode-container' }, [
                 createLevelNavButton('easy'),
                 createLevelNavButton('normal'),
                 createLevelNavButton('hard'),
                 createLevelNavButton('extreme'),
-            ]),
+            ])
         );
         return (
-            <div className='container'>
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+            <div className="container">
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
                     <h2>{this.state.musicName}</h2>
                 </div>
                 {navigation}

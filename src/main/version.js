@@ -5,13 +5,10 @@ import '../css/style.css';
 const viewVersion = () => {
     const Ret = [];
     VersionInfo.versions.forEach(v => {
-        Ret.push([
-            <dt key={v.name}>{v.name}</dt>,
-            <dd key={v.name}>{v.version}</dd>
-        ]);
+        Ret.push([<dt key={v.name}>{v.name}</dt>, <dd key={v.name}>{v.version}</dd>]);
     });
     return Ret;
-}
+};
 
 export default class VersionItem extends React.Component {
     constructor(props) {
@@ -19,10 +16,8 @@ export default class VersionItem extends React.Component {
     }
     render() {
         return (
-            <div id='version' className='container'>
-                <dl>
-                    {viewVersion()}
-                </dl>
+            <div id="version" className="container">
+                <dl>{viewVersion()}</dl>
             </div>
         );
     }

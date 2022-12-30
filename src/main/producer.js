@@ -35,7 +35,7 @@ export default class ProducerSearchItem extends React.Component {
     search() {
         const keyword = this.state.keyword;
         if (keyword.length === 0) return;
-        const requestUrl = `http://localhost:60000/v1_insider_preview/user?keyword=${keyword.replace(' ', '+')}`;
+        const requestUrl = `https://api.tokidolranking.site/v1_insider_preview/user?keyword=${keyword.replace(' ', '+')}`;
         fetch(requestUrl)
             .then(r => r.json())
             .then(response => {

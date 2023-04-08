@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AinoMegumi/TokidolRankigSite.git"
+    "url": "git+https://github.com/Kamioda/TokidolRankigSite.git"
   },
   "author": "ときめきアイドルスコアランキング運営",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AinoMegumi/BlossomAndGirlsAndDivaVoice_DevelopmentPage/issues"
+    "url": "https://github.com/Kamioda/TokidolRankigSite/issues"
   },
   "homepage": "https://www.tokidolranking.site/",
   "dependencies": {

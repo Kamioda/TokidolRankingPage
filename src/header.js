@@ -7,6 +7,11 @@ import logo from './resources/pic/logo1.gif';
 export default class PageHeaderItem extends React.Component {
     constructor(props) {
         super(props);
+        this.menuClasses =["navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse", "navbar-collapse d-sm-inline-flex flex-sm-row-reverse collapse show" ];
+        this.state = {
+            ariaExpanded: false,
+            
+        };
     }
     __pcHeader() {
         const item = menuRaw.menu.map(m => {
@@ -52,12 +57,13 @@ export default class PageHeaderItem extends React.Component {
                             data-toggle="collapse"
                             data-target=".navbar-collapse"
                             aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
+                            aria-expanded={this.state.ariaExpanded}
                             aria-label="Toggle navigation"
+                            onClick={() => this.setState({ariaExpanded : !this.state.ariaExpanded})}
                         >
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <div className={this.menuClasses[Number(this.state.ariaExpanded)]}>
                             <ul className="navbar-nav flex-grow-1">{item}</ul>
                         </div>
                     </div>
@@ -66,6 +72,6 @@ export default class PageHeaderItem extends React.Component {
         );
     }
     render() {
-        return window.innerWidth < 800 ? this.__spHeader() : this.__pcHeader();
+        return window.innerWidth <= 575 ? this.__spHeader() : this.__pcHeader();
     }
 }
